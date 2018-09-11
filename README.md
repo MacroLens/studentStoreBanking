@@ -28,7 +28,9 @@ to
 
 ## Testing
 Plug in the PN532 via a FTDI USB cable into the R-Pi
+
 * $ cd examples
 * $ sudo ./nfc-poll
+
 Place a card and if it reads great
 
