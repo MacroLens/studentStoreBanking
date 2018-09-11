@@ -29,8 +29,10 @@ to
 ## Testing
 Plug in the PN532 via a FTDI USB cable into the R-Pi
 
+Make sure the PN532 is configured for UART using SEL0 and SEL1
+
 * $ cd examples
 * $ sudo ./nfc-poll
 
-Place a card and if it reads great
+Place a card on the reader and if it returns something that isnt an error, everything should be working.
 
