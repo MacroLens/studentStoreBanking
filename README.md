@@ -10,8 +10,12 @@
 Add the following lines  to the bottom of this file
 > allow_intrusive_scan = true
 > log_level = 3
+
+
 Change
 > connstring = pn532_uart:/dev/ttyAMA0
+
+
 to
 > connstring = pn532_uart:/dev/ttyUSB0
 
