@@ -38,7 +38,7 @@ main(int argc, const char *argv[])
 
   // Display libnfc version
   const char *acLibnfcVersion = nfc_version();
-  //Added the following line to point to a device
+  //Added the following variable to point to a device
   const char device[] = "pn532_uart:/dev/ttyUSB0";
   (void)argc;
   //printf("%s uses libnfc %s\n", argv[0], acLibnfcVersion);
@@ -48,8 +48,10 @@ main(int argc, const char *argv[])
   //   - first specified device in libnfc.conf (/etc/nfc) or
   //   - first specified device in device-configuration directory (/etc/nfc/devices.d) or
   //   - first auto-detected (if feature is not disabled in libnfc.conf) device
-  pnd = nfc_open(context, device);
+  //   Originally it was NULL
+  pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
 
+  // If the device can't be initiated...
   if (pnd == NULL) {
     printf("ERROR: %s\n", "Unable to open NFC device.");
     exit(EXIT_FAILURE);
