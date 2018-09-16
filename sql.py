@@ -7,7 +7,7 @@ idUID='id_UID'
 balance='id_balance'
 newName=None
 newBal=None
-select=f"SELECT * FROM {table} WHERE {idUID}={UID}"
+select=f"SELECT * FROM {table} WHERE {idUID} = {UID}"
 insert=f"INSERT into {table} ({owner},{idUID},{balance}) VALUES ({newName}, {UID}, {newBal})"
 #this is a function due to instancing issues I was facing
 def update():
