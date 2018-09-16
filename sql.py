@@ -8,10 +8,11 @@ balance='id_balance'
 newName=None
 newBal=None
 select=f"SELECT * FROM {table} WHERE {idUID} = {UID}"
-insert=f"INSERT into {table} ({owner},{idUID},{balance}) VALUES ({newName}, {UID}, {newBal})"
 #this is a function due to instancing issues I was facing
 def update():
         return f"UPDATE {table} SET {balance} = {newBal} WHERE {idUID} = {UID}"
+def insert():
+        return f"INSERT into {table} ({owner},{idUID},{balance}) VALUES ({newName}, {UID}, {newBal})"
 #Connect to the mysql server
 mydb = mysql.connector.connect(
         host='192.168.1.135',
@@ -30,14 +31,14 @@ if not myresult:    #if the list is emtpy
     print('No Results. Create an account? Y/N:');
     if input()=="Y":
         print('What\'s the name?')
-        newName = input()
+        newName = "'"+input()+"'"
         print('Add balance? \'Yes\' or \'No\'')
         if input()=='Yes':
             print('How much in XX.XX?')
             newBal = (float)(input())
         else:
             newBal = 0
-        mycursor.execute(insert)
+        mycursor.execute(insert())
     else:
         print('ok')
 else:
