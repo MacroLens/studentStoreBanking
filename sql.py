@@ -38,6 +38,8 @@ if not myresult:    #if the list is emtpy
         else:
             newBal = 0
         mycursor.execute(insert)
+    else:
+        print('ok')
 else:
         name=myresult[0]
         money= float(myresult[2])
