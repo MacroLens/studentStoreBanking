@@ -1,6 +1,6 @@
 import mysql.connector
 mydb = mysql.connector.connect(
-        host='192.168.1.131',
+        host='192.168.1.135',
         user='test',
         password='test123',
         database='nfc'
