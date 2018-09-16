@@ -1,12 +1,12 @@
 ### Necessary Downloads and Library Installation  for R-Pi
-* $ sudo apt-get install autoconf automake libtool libusb-dev libpcsclite-dev git pip3 python3 mysql-client
-* $ pip3 install MySQL-connector-python
+* $ sudo apt-get install autoconf automake libtool libusb-dev libpcsclite-dev git
 * $ sudo git clone https://github.com/nfc-tools/libnfc.git
 * $ cd libnfc
 * $ mkdir /etc/nfc
 * $ mkdir /etc/nfc/devices.d/
 * $ sudo cp contrib/libnfc/pn532_uart_on_rpi.conf.sample /etc/nfc/devices.d/pn532_uart_on_rpi.conf
 * $ sudo vim /etc/nfc/devices.d/pn532_uart_on_rpi.conf
+* https://gist.github.com/dschep/24aa61672a2092246eaca2824400d37f this has a guide on installation of the needed python version needs to copied into this later
 
 Add the following lines  to the bottom of this file
 > allow_intrusive_scan = true
