@@ -1,5 +1,6 @@
 ### Necessary Downloads and Library Installation  for R-Pi
-* $ sudo apt-get install autoconf automake libtool libusb-dev libpcsclite-dev git
+* $ sudo apt-get install autoconf automake libtool libusb-dev libpcsclite-dev git pip3 python3 mysql-client
+* $ pip3 install MySQL-connector-python
 * $ sudo git clone https://github.com/nfc-tools/libnfc.git
 * $ cd libnfc
 * $ mkdir /etc/nfc
