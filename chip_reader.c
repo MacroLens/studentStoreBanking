@@ -4,7 +4,7 @@
  */
 
 // To compile this simple example:
-// $ gcc -o quick_start_example1 quick_start_example1.c -lnfc
+// $ gcc -o chip_reader chip_reader.c -lnfc
 
 #include <stdlib.h>
 #include <nfc/nfc.h>
@@ -36,19 +36,16 @@ main(int argc, const char *argv[])
     exit(EXIT_FAILURE);
   }
 
-  // Display libnfc version
-  const char *acLibnfcVersion = nfc_version();
-  //Added the following variable to point to a device
+  //Added the following variable to point to a device, points to the USB serial port
   const char device[] = "pn532_uart:/dev/ttyUSB0";
   (void)argc;
-  //printf("%s uses libnfc %s\n", argv[0], acLibnfcVersion);
 
   // Open, using the first available NFC device which can be in order of selection:
   //   - default device specified using environment variable or
   //   - first specified device in libnfc.conf (/etc/nfc) or
   //   - first specified device in device-configuration directory (/etc/nfc/devices.d) or
   //   - first auto-detected (if feature is not disabled in libnfc.conf) device
-  //   Originally it was NULL
+  //   Originally it was NULL, now its device
   pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
 
   // If the device can't be initiated...
@@ -56,33 +53,24 @@ main(int argc, const char *argv[])
     printf("ERROR: %s\n", "Unable to open NFC device.");
     exit(EXIT_FAILURE);
   }
+
   // Set opened NFC device to initiator mode
   if (nfc_initiator_init(pnd) < 0) {
     nfc_perror(pnd, "nfc_initiator_init");
     exit(EXIT_FAILURE);
   }
 
-  //printf("NFC reader: %s opened\n", nfc_device_get_name(pnd));
-
   // Poll for a ISO14443A (MIFARE) tag
   const nfc_modulation nmMifare = {
     .nmt = NMT_ISO14443A,
     .nbr = NBR_106,
   };
+
+  //Print the hexidecimal UID
   if (nfc_initiator_select_passive_target(pnd, nmMifare, NULL, 0, &nt) > 0) {
-    //printf("The following (NFC) ISO14443A tag was found:\n");
-    //printf("    ATQA (SENS_RES): ");
-    //print_hex(nt.nti.nai.abtAtqa, 2);
-    // I need this code but I can't understand it, 
-    //printf("       UID (NFCID%c): ", (nt.nti.nai.abtUid[0] == 0x08 ? '3' : '1'));
-    print_hex(nt.nti.nai.abtUid, nt.nti.nai.szUidLen);   
-    //printf("      SAK (SEL_RES): ");
-    //print_hex(&nt.nti.nai.btSak, 1);
-    //if (nt.nti.nai.szAtsLen) {
-    //  printf("          ATS (ATR): ");
-    //  print_hex(nt.nti.nai.abtAts, nt.nti.nai.szAtsLen);
-    //}
+    print_hex(nt.nti.nai.abtUid, nt.nti.nai.szUidLen);
   }
+
   // Close NFC device
   nfc_close(pnd);
   // Release the context

@@ -15,7 +15,7 @@ def insert():
         return f"INSERT into {table} ({owner},{idUID},{balance}) VALUES ({newName}, {UID}, {newBal})"
 #Connect to the mysql server
 mydb = mysql.connector.connect(
-        host='192.168.1.135',
+        host='localhost',
         user='test',
         password='test123',
         database='nfc'
