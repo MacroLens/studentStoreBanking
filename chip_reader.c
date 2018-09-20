@@ -38,8 +38,6 @@ main(int argc, const char *argv[])
 
   //Added the following variable to point to a device, points to the USB serial port
   const char device[] = "pn532_uart:/dev/ttyUSB0";
-  (void)argc;
-
   // Open, using the first available NFC device which can be in order of selection:
   //   - default device specified using environment variable or
   //   - first specified device in libnfc.conf (/etc/nfc) or
