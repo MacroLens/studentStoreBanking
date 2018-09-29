@@ -35,6 +35,7 @@ def decode():
         #print("error: may not be able to read card. check card reader connection")
     return str(nfcUID)
 def sql():
+    print("Place Card on Reader:")
     UID = decode()
     mydb = mysql.connector.connect(
         host='192.168.1.135',
@@ -81,6 +82,10 @@ def sql():
     #mycursor.execute(update)
     mydb.commit();
 
-#decode();
-#UID = (int)(open('output').read())
-sql();
+def main():
+    while True:
+        sql();
+
+
+
+main();
