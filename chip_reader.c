@@ -44,8 +44,8 @@ main(int argc, const char *argv[])
   //   - first specified device in device-configuration directory (/etc/nfc/devices.d) or
   //   - first auto-detected (if feature is not disabled in libnfc.conf) device
   //   Originally it was NULL, now its device
-  pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
-
+  //pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
+  pnd = nfc_open(context, &"pn532_uart:/dev/ttyUSB0"); //changed NULL to device in order to point to proper device
   // If the device can't be initiated...
   if (pnd == NULL) {
     printf("ERROR: %s\n", "Unable to open NFC device.");
