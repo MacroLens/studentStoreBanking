@@ -37,15 +37,15 @@ main(int argc, const char *argv[])
   }
 
   //Added the following variable to point to a device, points to the USB serial port
-  const char device[] = "pn532_uart:/dev/ttyUSB0";
+  //const char device[] = "pn532_uart:/dev/ttyUSB0";
   // Open, using the first available NFC device which can be in order of selection:
   //   - default device specified using environment variable or
   //   - first specified device in libnfc.conf (/etc/nfc) or
   //   - first specified device in device-configuration directory (/etc/nfc/devices.d) or
   //   - first auto-detected (if feature is not disabled in libnfc.conf) device
   //   Originally it was NULL, now its device
-  pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
-
+  //pnd = nfc_open(context, device); //changed NULL to device in order to point to proper device
+  pnd = nfc_open(context, &"pn532_uart:/dev/ttyUSB0"); //changed NULL to device in order to point to proper device
   // If the device can't be initiated...
   if (pnd == NULL) {
     printf("ERROR: %s\n", "Unable to open NFC device.");
