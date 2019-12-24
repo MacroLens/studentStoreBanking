@@ -12,21 +12,22 @@ def clear():
 clearText = Button(frame, text="Clear", command=clear).grid(row=4,column=4)
 
 def printMessage(text):
-    textBox.insert(END, "\n"+str(text))
+    if text != "Enter\nReturn":
+        textBox.insert(END, str(text))
+    else:
+        textBox.insert(END, "\n")
 
 #button1 = Button(frame, text="Print Message", command=printMessage)
 #button1.grid(column=1)
 
-keypad = [7,8,9,4,5,6,1,2,3,0]
+keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
 
 
 r = 1
 c = 0
 for i in keypad:
-    if r==4:
-        c = 1
     valuePress = lambda button=i: printMessage(button)
-    Button(frame, text=i, command=valuePress, height=10, width=15).grid(row=r,column=c)
+    Button(frame, text=i, command=valuePress, height=5, width=5).grid(row=r,column=c)
     c+=1
     if c >= 3:
         c = 0
