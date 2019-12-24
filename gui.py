@@ -10,12 +10,15 @@ textBox.insert(INSERT, "Welcome to the store!")
 clearText = Button(frame, text="Clear", command=lambda: textBox.delete(1.0,END)).grid(row=4,column=4)
 
 def printMessage(text):
-    textBox.insert(END, "\n"+str(text))
+    if text != "Enter\nReturn":
+        textBox.insert(END, str(text))
+    else:
+        textBox.insert(END, "\n")
 
 #button1 = Button(frame, text="Print Message", command=printMessage)
 #button1.grid(column=1)
 
-keypad = [7,8,9,4,5,6,1,2,3,0]
+keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
 
 class keyPad:
     def __init__(self,myFrame):
