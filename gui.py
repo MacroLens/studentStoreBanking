@@ -1,13 +1,18 @@
 #!/usr/bin/python3
 from tkinter import *
-
+from nfcScript import *
 root = Tk()
 frame = Frame(root)
 frame.grid(row=0, column=0)
 textBox = Text(frame)
-textBox.grid(row=0,column=4,rowspan=4)
+textBox.grid(row=0,column=4,rowspan=4,columnspan=2)
 textBox.insert(INSERT, "Welcome to the store!")
-clearText = Button(frame, text="Clear", command=lambda: textBox.delete(1.0,END)).grid(row=4,column=4)
+clearText = Button(frame, text="Clear", command=lambda: textBox.delete(1.0,END)).grid(row=4,column=5)
+
+def scanCard():
+    x = decode()
+    printMessage(x)
+scan = Button(frame, text="Scan Card", command=scanCard).grid(row=4,column=4)
 
 def printMessage(text):
     if text != "Enter\nReturn":
@@ -26,7 +31,7 @@ class keyPad:
         c = 0
         for i in keypad:
             valuePress = lambda button=i: printMessage(button)
-            Button(myFrame, text=i, command=valuePress, height=5, width=15).grid(row=r,column=c)
+            Button(myFrame, text=i, command=valuePress, height=5, width=3).grid(row=r,column=c)
             c+=1
             if c >= 3:
                 c = 0

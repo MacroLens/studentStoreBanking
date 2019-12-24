@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import subprocess
 import mysql.connector
 #operations and needed test variables
@@ -82,10 +83,6 @@ def sql():
     #mycursor.execute(update)
     mydb.commit();
 
-def main():
-    while True:
-        sql();
 
 
 
-main();
