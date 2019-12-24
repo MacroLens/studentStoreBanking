@@ -25,8 +25,6 @@ class keyPad:
         r = 1
         c = 0
         for i in keypad:
-            if r==4:
-                c = 1
             valuePress = lambda button=i: printMessage(button)
             Button(myFrame, text=i, command=valuePress, height=5, width=15).grid(row=r,column=c)
             c+=1
