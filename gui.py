@@ -5,13 +5,19 @@ root = Tk()
 frame = Frame(root)
 frame.grid(row=0, column=0)
 textBox = Text(frame)
-textBox.grid(row=0,column=4,rowspan=4,columnspan=2)
+textBox.grid(row=0,column=4,rowspan=4,columnspan=3)
 textBox.insert(INSERT, "Welcome to the store!")
 clearText = Button(frame, text="Clear", command=lambda: textBox.delete(1.0,END)).grid(row=4,column=5)
 
 def scanCard():
+    printMessage("\nPlace card on reader.'")
     x = decode()
-    printMessage(x)
+    if not x:  # if the reader throws an error.
+        printMessage("\nMake sure the reader is plugged in and turned on.")
+    else:
+        printMessage(x)
+
+
 scan = Button(frame, text="Scan Card", command=scanCard).grid(row=4,column=4)
 
 def printMessage(text):

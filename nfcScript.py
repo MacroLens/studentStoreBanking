@@ -32,7 +32,7 @@ def decode():
         #print(hex_list)
         output.write(str(nfcUID)); # Writes to the output file the nfcUID
     except (OSError, subprocess.CalledProcessError) as e:
-        print(e)
+        return False
         #print("error: may not be able to read card. check card reader connection")
     return str(nfcUID)
 def sql():
