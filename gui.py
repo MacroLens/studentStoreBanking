@@ -12,15 +12,26 @@ class store:
         self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
         self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
         self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
+        self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
+        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalButton)
         self.defaultLayout()
         self.createKeyPad()
 
     def defaultLayout(self):
+        self.addBalButton.grid_forget()
         self.frame.grid(row=0, column=0)
         self.textBox.grid(row=0, column=4, rowspan=4, columnspan=3)
         self.scan.grid(row=4, column=4)
         self.clearText.grid(row=4, column=5)
         self.retrieve.grid(row=4, column=6)
+
+    # On press of scan button switch layout.
+    def scanLayout(self):
+        self.scan.grid_forget()
+        self.retrieve.grid_forget()
+        self.subBalButton.grid(row=4, column=6)
+        self.addBalButton.grid(row=4, column=4)
+
 
     def createKeyPad(self):
         keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
@@ -39,12 +50,16 @@ class store:
         print(self.textBox.get("1.0", 'end-1c').splitlines()[-1:])
 
     def scanCard(self):
+        self.scanLayout()
         self.printMessage("\nPlace card on reader.")
         x = decode()
         if not x:  # if the reader throws an error.
             self.printMessage("\nMake sure the reader is plugged in and turned on.")
         else:
             self.printMessage(x)
+
+        self.defaultLayout()
+
 
 
 
@@ -54,6 +69,18 @@ class store:
         else:
             self.textBox.insert(END, "\n")
         self.textBox.update()
+
+    def addBalance(self, negative=False):
+        # TODO SELECT BALANCE
+        if negative:
+            # TODO take balance negative
+            return
+
+        self.defaultLayout()
+        return
+
+    def subBalance(self):
+        self.addBalance(True)
 
 
 storeWindow = Tk()
