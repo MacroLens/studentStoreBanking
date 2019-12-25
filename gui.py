@@ -1,49 +1,49 @@
 #!/usr/bin/python3
 from tkinter import *
 from nfcScript import *
-root = Tk()
-frame = Frame(root)
-frame.grid(row=0, column=0)
-textBox = Text(frame)
-textBox.grid(row=0,column=4,rowspan=4,columnspan=3)
-textBox.insert(INSERT, "Welcome to the store!")
-clearText = Button(frame, text="Clear", command=lambda: textBox.delete(1.0,END)).grid(row=4,column=5)
 
-def scanCard():
-    printMessage("\nPlace card on reader.'")
-    x = decode()
-    if not x:  # if the reader throws an error.
-        printMessage("\nMake sure the reader is plugged in and turned on.")
-    else:
-        printMessage(x)
+class store:
 
+    def __init__(self, master):
+        self.root = master
+        self.frame = Frame(self.root)
+        self.frame.grid(row=0, column=0)
+        self.textBox = Text(self.frame)
+        self.textBox.grid(row=0,column=4,rowspan=4,columnspan=3)
+        self.textBox.insert(INSERT, "Welcome to the store!")
+        self.createKeyPad()
+        clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0,END)).grid(row=4,column=5)
+        scan = Button(self.frame, text="Scan Card", command=self.scanCard).grid(row=4,column=4)
 
-scan = Button(frame, text="Scan Card", command=scanCard).grid(row=4,column=4)
-
-def printMessage(text):
-    if text != "Enter\nReturn":
-        textBox.insert(END, str(text))
-    else:
-        textBox.insert(END, "\n")
-
-#button1 = Button(frame, text="Print Message", command=printMessage)
-#button1.grid(column=1)
-
-keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
-
-class keyPad:
-    def __init__(self,myFrame):
+    def createKeyPad(self):
+        keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
         r = 1
         c = 0
         for i in keypad:
-            valuePress = lambda button=i: printMessage(button)
-            Button(myFrame, text=i, command=valuePress, height=5, width=3).grid(row=r,column=c)
+            valuePress = lambda button=i: store.printMessage(self, button)
+            Button(self.frame, text=i, command=valuePress, height=5, width=3).grid(row=r,column=c)
             c+=1
             if c >= 3:
                 c = 0
                 r+=1
-    
-keypad = keyPad(frame)
+
+    def scanCard(self):
+        self.printMessage("\nPlace card on reader.'")
+        x = decode()
+        if not x:  # if the reader throws an error.
+            self.printMessage("\nMake sure the reader is plugged in and turned on.")
+        else:
+            self.printMessage(x)
 
 
-root.mainloop()
+
+    def printMessage(self, text):
+        if text != "Enter\nReturn":
+            self.textBox.insert(END, str(text))
+        else:
+            self.textBox.insert(END, "\n")
+
+
+storeWindow = Tk()
+store(storeWindow)
+storeWindow.mainloop()
