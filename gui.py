@@ -28,7 +28,7 @@ class store:
                 r+=1
 
     def scanCard(self):
-        self.printMessage("\nPlace card on reader.'")
+        self.printMessage("\nPlace card on reader.")
         x = decode()
         if not x:  # if the reader throws an error.
             self.printMessage("\nMake sure the reader is plugged in and turned on.")
@@ -42,6 +42,7 @@ class store:
             self.textBox.insert(END, str(text))
         else:
             self.textBox.insert(END, "\n")
+        self.textBox.update()
 
 
 storeWindow = Tk()
