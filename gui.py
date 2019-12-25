@@ -35,8 +35,8 @@ class store:
                 r+=1
 
     def retrieve_input(self):
-        # Returns all text in the textbox excluding the last new line character.
-        print(self.textBox.get("1.0", 'end-1c').encode('unicode_escape'))
+        # pulls just the last line for cleanup reasons. May modify function to take multiple lines
+        print(self.textBox.get("1.0", 'end-1c').splitlines()[-1:])
 
     def scanCard(self):
         self.printMessage("\nPlace card on reader.")
