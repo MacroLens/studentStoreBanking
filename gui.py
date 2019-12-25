@@ -12,8 +12,9 @@ class store:
         self.textBox.grid(row=0,column=4,rowspan=4,columnspan=3)
         self.textBox.insert(INSERT, "Welcome to the store!")
         self.createKeyPad()
-        clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0,END)).grid(row=4,column=5)
-        scan = Button(self.frame, text="Scan Card", command=self.scanCard).grid(row=4,column=4)
+        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0,END)).grid(row=4,column=5)
+        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard).grid(row=4,column=4)
+        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input).grid(row=4,column=6)
 
     def createKeyPad(self):
         keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
@@ -26,6 +27,10 @@ class store:
             if c >= 3:
                 c = 0
                 r+=1
+
+    def retrieve_input(self):
+        # Returns all text in the textbox excluding the last new line character.
+        print(self.textBox.get("1.0", 'end-1c').encode('unicode_escape'))
 
     def scanCard(self):
         self.printMessage("\nPlace card on reader.")
