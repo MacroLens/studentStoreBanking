@@ -7,14 +7,20 @@ class store:
     def __init__(self, master):
         self.root = master
         self.frame = Frame(self.root)
-        self.frame.grid(row=0, column=0)
         self.textBox = Text(self.frame)
-        self.textBox.grid(row=0,column=4,rowspan=4,columnspan=3)
         self.textBox.insert(INSERT, "Welcome to the store!")
-        self.createKeyPad()
-        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0,END)).grid(row=4,column=5)
-        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard).grid(row=4,column=4)
-        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input).grid(row=4,column=6)
+        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
+        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
+        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
+        self.defaultLayout()
+
+    def defaultLayout(self):
+        self.createKeyPad()  # decided it's easier logically to just call createKeyPad and delete it when not needed.
+        self.frame.grid(row=0, column=0)
+        self.textBox.grid(row=0, column=4, rowspan=4, columnspan=3)
+        self.scan.grid(row=4, column=4)
+        self.clearText.grid(row=4, column=5)
+        self.retrieve.grid(row=4, column=6)
 
     def createKeyPad(self):
         keypad = [7,8,9,4,5,6,1,2,3,0,".","Enter\nReturn"]
