@@ -13,9 +13,9 @@ class store:
         self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
         self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
         self.defaultLayout()
+        self.createKeyPad()
 
     def defaultLayout(self):
-        self.createKeyPad()  # decided it's easier logically to just call createKeyPad and delete it when not needed.
         self.frame.grid(row=0, column=0)
         self.textBox.grid(row=0, column=4, rowspan=4, columnspan=3)
         self.scan.grid(row=4, column=4)
