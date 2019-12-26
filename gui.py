@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from tkinter import *
 from nfcScript import *
+import database
 
 class store:
 
@@ -16,6 +17,9 @@ class store:
         self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance())
         self.defaultLayout()
         self.createKeyPad()
+
+        self.db = database.database
+        self.currentUser = None
 
     def defaultLayout(self):
         self.addBalButton.grid_forget()
@@ -57,7 +61,11 @@ class store:
         if not x:  # if the reader throws an error.
             self.printMessage("\nMake sure the reader is plugged in and turned on.")
         else:
-            self.printMessage(x)
+            self.currentUser = x
+            name = self.db.getStudentName(x)
+            if bool(name[len(name)-1]):  # if the call returns true, then do the following.
+                balance = self.db.getBalance(x)
+            self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + balance[0])
 
         self.defaultLayout()
 
