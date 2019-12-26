@@ -13,7 +13,7 @@ class store:
         self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
         self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
         self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
-        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalButton)
+        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance())
         self.defaultLayout()
         self.createKeyPad()
 
