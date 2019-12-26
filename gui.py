@@ -19,6 +19,7 @@ class store:
 
     def defaultLayout(self):
         self.addBalButton.grid_forget()
+        self.subBalButton.grid_forget()
         self.frame.grid(row=0, column=0)
         self.textBox.grid(row=0, column=4, rowspan=4, columnspan=3)
         self.scan.grid(row=4, column=4)
