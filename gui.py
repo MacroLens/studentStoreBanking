@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from tkinter import *
 from nfcScript import *
-import database
+from database import database
 
 class store:
 
@@ -18,7 +18,7 @@ class store:
         self.defaultLayout()
         self.createKeyPad()
 
-        self.db = database.database
+        self.db = database()
         self.currentUser = None
 
     def defaultLayout(self):
