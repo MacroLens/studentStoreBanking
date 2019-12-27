@@ -10,6 +10,11 @@ class store:
         self.frame = Frame(self.root)
         self.textBox = Text(self.frame)
         self.textBox.insert(INSERT, "Welcome to the store!")
+        self.clearText = Button(self.frame)
+        self.scan = Button(self.frame)
+        self.addBalButton = Button(self.frame)
+        self.subBalButton = Button(self.frame)
+        self.addAccButton = Button(self.frame)
         self.defaultButtons()
         self.defaultLayout()
         self.createKeyPad()
@@ -18,11 +23,11 @@ class store:
         self.currentUser = None
 
     def defaultButtons(self):
-        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
-        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
-        self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
-        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance)
-        self.addAccButton = Button(self.frame, text="Add Account", command=self.addAccountStage)
+        self.clearText.config(text="Clear", command=lambda: self.textBox.delete(1.0, END))
+        self.scan.config(text="Scan Card", command=self.scanCard)
+        self.addBalButton.config(text="Add Balance", command=self.addBalance)
+        self.subBalButton.config(text="Subtract Balance", command=self.subBalance)
+        self.addAccButton.config(text="Add Account", command=self.addAccountStage)
 
 
     def defaultLayout(self):
@@ -37,6 +42,7 @@ class store:
     # On press of scan button switch layout.
     def scanLayout(self):
         self.scan.grid_forget()
+        self.addAccButton.grid_forget()
         self.subBalButton.grid(row=4, column=6)
         self.addBalButton.grid(row=4, column=4)
 
@@ -70,7 +76,7 @@ class store:
                 balance = self.db.getBalance(x)
                 self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(balance[0]))
                 self.printMessage("\nType the balance you would like to add or subtract: ")
-                self.clearText.config(command=self.abort())
+                self.clearText.config(command=self.abort)
             else:
                 self.printMessage("\nNo account found!")
                 self.defaultLayout()
@@ -85,8 +91,8 @@ class store:
         self.textBox.update()
 
     def abort(self):
-        self.defaultButtons()
         self.defaultLayout()
+        self.defaultButtons()
 
     def addBalance(self, negative=False):
         inputlines = self.retrieve_input(1)
@@ -99,7 +105,7 @@ class store:
             bal = self.db.getBalance(self.currentUser)[0]
             self.printMessage("\nNew balance is: " + str(bal))
         else:
-            self.printMessage("Something went wrong...")
+            self.printMessage("\nBalance would be below zero")
         self.abort()
 
     def subBalance(self):
