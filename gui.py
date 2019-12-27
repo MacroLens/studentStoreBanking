@@ -72,7 +72,7 @@ class store:
                 self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(balance[0]))
                 self.printMessage("\nType the balance you would like to add or subtract: ")
             else:
-                self.printMessage("No account found!")
+                self.printMessage("\nNo account found!")
                 self.defaultLayout()
 
 
