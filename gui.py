@@ -20,7 +20,6 @@ class store:
     def defaultButtons(self):
         self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
         self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
-        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
         self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
         self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance)
         self.addAccButton = Button(self.frame, text="Add Account", command=self.addAccountStage)
