@@ -116,8 +116,8 @@ class store:
 
     def addAccountCommit(self):
         inputlines = self.retrieve_input(2)
-        name = inputlines[0][inputlines[0].index(":")+2]
-        balance = float(inputlines[1][inputlines[1].index(":")+2])
+        name = inputlines[0][inputlines[0].index(":")+2:]
+        balance = float(inputlines[1][inputlines[1].index(":")+2:])
         proc = self.db.addAccount(self.currentUser,name,balance)
         if bool(proc[len(proc)-1]):  # if the call returns true, then do the following
             self.printMessage("\nAccount Created!")
