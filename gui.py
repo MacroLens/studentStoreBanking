@@ -71,6 +71,7 @@ class store:
                 balance = self.db.getBalance(x)
                 self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(balance[0]))
                 self.printMessage("\nType the balance you would like to add or subtract: ")
+                self.clearText.config(command=self.abort())
             else:
                 self.printMessage("\nNo account found!")
                 self.defaultLayout()
@@ -84,14 +85,23 @@ class store:
             self.textBox.insert(END, "\n")
         self.textBox.update()
 
-    def addBalance(self, negative=False):
-        # TODO SELECT BALANCE
-        if negative:
-            # TODO take balance negative
-            return
-
+    def abort(self):
+        self.defaultButtons()
         self.defaultLayout()
-        return
+
+    def addBalance(self, negative=False):
+        inputlines = self.retrieve_input(1)
+        difference = float(inputlines[0][inputlines[0].index(":")+2:])
+        if negative:
+            difference = -difference
+        proc = self.db.changeBalance(self.currentUser, difference)
+        if bool(proc[len(proc)-1]):  # if the call returns true, then do the following
+            self.printMessage("\nBalance was changed.")
+            bal = self.db.getBalance(self.currentUser)[0]
+            self.printMessage("\nNew balance is: " + str(bal))
+        else:
+            self.printMessage("Something went wrong...")
+        self.abort()
 
     def subBalance(self):
         self.addBalance(True)
