@@ -37,7 +37,6 @@ class store:
     # On press of scan button switch layout.
     def scanLayout(self):
         self.scan.grid_forget()
-        self.retrieve.grid_forget()
         self.subBalButton.grid(row=4, column=6)
         self.addBalButton.grid(row=4, column=4)
 
