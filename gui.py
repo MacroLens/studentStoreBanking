@@ -57,7 +57,7 @@ class store:
 
     def retrieve_input(self, lines=1):
         # pulls just the last line for cleanup reasons. May modify function to take multiple lines
-        print(self.textBox.get("1.0", 'end-1c').splitlines()[-lines:])
+        return self.textBox.get("1.0", 'end-1c').splitlines()[-lines:]
 
     def scanCard(self):
         self.scanLayout()
