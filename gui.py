@@ -10,16 +10,21 @@ class store:
         self.frame = Frame(self.root)
         self.textBox = Text(self.frame)
         self.textBox.insert(INSERT, "Welcome to the store!")
-        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
-        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
-        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
-        self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
-        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance())
+        self.defaultButtons()
         self.defaultLayout()
         self.createKeyPad()
 
         self.db = database()
         self.currentUser = None
+
+    def defaultButtons(self):
+        self.clearText = Button(self.frame, text="Clear", command=lambda: self.textBox.delete(1.0, END))
+        self.scan = Button(self.frame, text="Scan Card", command=self.scanCard)
+        self.retrieve = Button(self.frame, text="Retrieve", command=self.retrieve_input)
+        self.addBalButton = Button(self.frame, text="Add Balance", command=self.addBalance)
+        self.subBalButton = Button(self.frame, text="Subtract Balance", command=self.subBalance)
+        self.addAccButton = Button(self.frame, text="Add Account", command=self.addAccountStage)
+
 
     def defaultLayout(self):
         self.addBalButton.grid_forget()
@@ -28,7 +33,7 @@ class store:
         self.textBox.grid(row=0, column=4, rowspan=4, columnspan=3)
         self.scan.grid(row=4, column=4)
         self.clearText.grid(row=4, column=5)
-        self.retrieve.grid(row=4, column=6)
+        self.addAccButton.grid(row=4, column=6)
 
     # On press of scan button switch layout.
     def scanLayout(self):
@@ -50,9 +55,9 @@ class store:
                 c = 0
                 r+=1
 
-    def retrieve_input(self):
+    def retrieve_input(self, lines=1):
         # pulls just the last line for cleanup reasons. May modify function to take multiple lines
-        print(self.textBox.get("1.0", 'end-1c').splitlines()[-1:])
+        print(self.textBox.get("1.0", 'end-1c').splitlines()[-lines:])
 
     def scanCard(self):
         self.scanLayout()
@@ -65,10 +70,11 @@ class store:
             name = self.db.getStudentName(x)
             if bool(name[len(name)-1]):  # if the call returns true, then do the following.
                 balance = self.db.getBalance(x)
-            self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + balance[0])
-
-        self.defaultLayout()
-
+                self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(balance[0]))
+                self.printMessage("\nType the balance you would like to add or subtract: ")
+            else:
+                self.printMessage("No account found!")
+                self.defaultLayout()
 
 
 
@@ -90,6 +96,35 @@ class store:
 
     def subBalance(self):
         self.addBalance(True)
+
+    def addAccountStage(self):
+        self.printMessage("\nPlace card on reader.")
+        x = decode()
+        if not x:  # if the reader throws an error.
+            self.printMessage("\nMake sure the reader is plugged in and turned on.")
+        else:
+            self.currentUser = x
+            name = self.db.getStudentName(x)
+            if not bool(name[len(name)-1]):  # if the call returns true, then do the following.
+                self.printMessage("\nOn each line type in the required information then press the Add Account Button. ")
+                self.printMessage("\nName: ")
+                self.printMessage("\nBalance: ")
+                self.addAccButton.config(command=self.addAccountCommit)
+
+            else:
+                self.printMessage("\nAccount already exists: it belongs to " + name[0])
+
+    def addAccountCommit(self):
+        inputlines = self.retrieve_input(2)
+        name = inputlines[0][inputlines[0].index(":")+2]
+        balance = float(inputlines[1][inputlines[1].index(":")+2])
+        proc = self.db.addAccount(self.currentUser,name,balance)
+        if bool(proc[len(proc)-1]):  # if the call returns true, then do the following
+            self.printMessage("\nAccount Created!")
+        else:
+            self.printMessage("Something went wrong...")
+        self.defaultButtons()
+
 
 
 storeWindow = Tk()
