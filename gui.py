@@ -118,6 +118,7 @@ class store:
             self.printMessage("\nMake sure the reader is plugged in and turned on.")
         else:
             self.currentUser = x
+            self.clearText.config(command=self.abort)
             name = self.db.getStudentName(x)
             if not bool(name[len(name)-1]):  # if the call returns true, then do the following.
                 self.printMessage("\nOn each line type in the required information then press the Add Account Button. ")
