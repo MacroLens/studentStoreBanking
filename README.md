@@ -1,3 +1,6 @@
+# A Raspberry Pi Sales Terminal
+## Uses the [Adafruit NFC Scanner](https://www.adafruit.com/product/364) and the [FTDI Serial Cable](https://www.adafruit.com/product/70)
+
 ### Necessary Downloads and Library Installation  for R-Pi
 ```bash
 $ sudo apt-get install autoconf automake libtool libusb-dev libpcsclite-dev git
