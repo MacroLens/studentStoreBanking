@@ -74,7 +74,7 @@ class store:
             name = self.db.getStudentName(x)
             if bool(name[len(name)-1]):  # if the call returns true, then do the following.
                 balance = self.db.getBalance(x)
-                self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(balance[0]))
+                self.printMessage("\nID: " + x + "\nStudent Name: " + name[0] + "\nBalance: $" + str(round(balance[0],2)))
                 self.printMessage("\nType the balance you would like to add or subtract: ")
                 self.clearText.config(command=self.abort)
             else:
@@ -102,7 +102,7 @@ class store:
         proc = self.db.changeBalance(self.currentUser, difference)
         if bool(proc[len(proc)-1]):  # if the call returns true, then do the following
             self.printMessage("\nBalance was changed.")
-            bal = self.db.getBalance(self.currentUser)[0]
+            bal = round(self.db.getBalance(self.currentUser)[0],2)
             self.printMessage("\nNew balance is: " + str(bal))
         else:
             self.printMessage("\nBalance would be below zero")
